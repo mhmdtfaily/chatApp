@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (submit)="onSubmit()">
+    <ion-item>
+      <ion-label position="floating">Full name</ion-label>
+      <ion-input [(ngModel)]="fullName" name="fullName" type="text" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input [(ngModel)]="email" name="email" type="email" required></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" type="submit" color="primary">Login / Create Account</ion-button>
+  </form>
+</ion-content>

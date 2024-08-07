@@ -1,0 +1,53 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>My App</ion-title>
+  </ion-toolbar>
+</ion-header>
+ -->
+
+<ion-content>
+  <ng-container [ngSwitch]="selectedButton">
+    <app-profile *ngSwitchCase="1"></app-profile>
+    <app-setting *ngSwitchCase="2"></app-setting>
+    <app-matches *ngSwitchCase="3"></app-matches>
+  </ng-container>
+</ion-content>
+
+
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="full" (click)="selectButton(1)" [color]="selectedButton === 1 ? 'primary' : 'light'" fill="clear" class="footer-button" [class.selected]="selectedButton === 1">
+            <div class="button-content">
+              <ion-icon name="person-outline"></ion-icon>
+              <div class="label">Profile</div>
+            </div>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="full" (click)="selectButton(2)" [color]="selectedButton === 2 ? 'primary' : 'light'" fill="clear" class="footer-button" [class.selected]="selectedButton === 2">
+            <div class="button-content">
+              <ion-icon name="heart-outline"></ion-icon>
+              <div class="label">Setting</div>
+            </div>
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="full" (click)="selectButton(3)" [color]="selectedButton === 3 ? 'primary' : 'light'" fill="clear" class="footer-button" [class.selected]="selectedButton === 3">
+            <div class="button-content">
+              <ion-icon name="chatbubbles-outline"></ion-icon>
+              <div class="label">Matches</div>
+            </div>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>
+
+
+
+

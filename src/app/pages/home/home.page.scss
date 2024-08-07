@@ -1,0 +1,110 @@
+ion-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px; /* Set a smaller height for the footer */
+    z-index: 10;
+    --background: #fff; /* Optional: Set background color */
+  }
+  
+  ion-toolbar {
+    height: 100%; /* Make sure toolbar fills the footer */
+    --padding-start: 0; /* Remove padding if needed */
+    --padding-end: 0; /* Remove padding if needed */
+  }
+  
+  ion-grid {
+    height: 100%; /* Full height of the toolbar */
+    margin: 0; /* Remove margins */
+  }
+  
+  ion-row {
+    height: 100%; /* Full height of the grid */
+    margin: 0; /* Remove margins */
+  }
+  
+  ion-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* Remove padding in columns */
+    height: 100%; /* Full height of the row */
+  }
+  
+  .footer-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0; /* Remove padding inside buttons */
+    height: 100%; /* Full height of the column */
+    --border-radius: 0; /* Optional: Remove border radius if desired */
+    --margin-bottom: 0; /* Remove bottom margin if needed */
+  
+    .button-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%; /* Full height of the button */
+    }
+  
+    ion-icon {
+      color: grey;
+      font-size: 24px; /* Adjust icon size */
+    }
+  
+    .label {
+      font-size: 14px; /* Adjust font size of the label */
+      font-weight: bold;
+      color: var(--ion-color-primary);
+      display: none; /* Hide label by default */
+      margin-top: 2px; /* Space between icon and label */
+    }
+  
+    &.selected ion-icon {
+      color: var(--ion-color-primary);
+    }
+  
+    &.selected .label {
+      display: block; /* Show label when button is selected */
+    }
+  }
+  
+  /* Target the ion-button directly */
+  ion-button {
+    --padding-start: 0; /* Remove padding on the start */
+    --padding-end: 0; /* Remove padding on the end */
+    --padding-top: 0; /* Remove padding on the top */
+    --padding-bottom: 0; /* Remove padding on the bottom */
+    --border-radius: 0; /* Optional: Remove border radius if needed */
+  }
+  
+  /* Additional styling for button content if needed */
+  .button-content {
+    padding: 0; /* Remove padding inside button content */
+    margin: 0; /* Remove margin if needed */
+    display: flex; /* Ensure flex layout is applied */
+    flex-direction: column; /* Align items vertically */
+    justify-content: center; /* Center items vertically */
+    align-items: center; /* Center items horizontally */
+  }
+  
+  ion-icon {
+    font-size: 24px; /* Adjust size of the icon if needed */
+  }
+  
+  /* Ensure labels are properly styled */
+  .label {
+    font-size: 14px; /* Adjust font size of the label */
+    font-weight: bold;
+    color: var(--ion-color-primary);
+    margin-top: 2px; /* Space between icon and label */
+    display: none; /* Hide label by default */
+  }
+  
+  ion-button.selected .label {
+    display: block; /* Show label when button is selected */
+  }
+  
