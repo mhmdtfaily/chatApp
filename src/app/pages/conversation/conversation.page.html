@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Conversation</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="chatId && userId">
+    <!-- Display conversation based on chatId and userId -->
+    <p>Chat ID: {{ chatId }}</p>
+    <p>User ID: {{ userId }}</p>
+  </div>
+</ion-content>
