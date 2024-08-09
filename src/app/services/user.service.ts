@@ -15,8 +15,8 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<User[]> {
-    return this.http.get<DefaultResponse>(`${this.apiUrl}/`).pipe(
+  getUsers(userId:string): Observable<User[]> {
+    return this.http.get<DefaultResponse>(`${this.apiUrl}/${userId}`).pipe(
       map((response) => {
         if (response.isSuccess) {
           return response.data as User[];

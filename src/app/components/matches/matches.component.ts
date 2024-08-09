@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { io } from 'socket.io-client';
 import { Chat } from 'src/app/models/chat.model';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
@@ -9,47 +10,55 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './matches.component.html',
   styleUrls: ['./matches.component.scss'],
 })
-export class MatchesComponent implements OnInit  {
+export class MatchesComponent implements OnInit {
+  my_id: string | null = null;
   users: User[] = [];
   chats: Chat[] = [];
+  socket: any;
 
   constructor(private userService: UserService, private router: Router) {
-    this.getUsers();
-    this.getChats();
+    this.socket = io('http://192.168.1.103:3000');
   }
+
   ngOnInit() {
-    this.getUsers();
-    this.getChats();
+    this.onReceive();
+    this.my_id = localStorage.getItem('my_id');
+    console.log('my_id');
+    if (this.my_id) {
+      this.getUsers();
+      this.getChats();
+    }
   }
 
   getUsers() {
-    this.userService.getUsers().subscribe(
-      (users: User[]) => {
-        // this.users = users;
-        this.users =users;
-      },
-      (error) => {
-        console.error('Error fetching users:', error);
-      }
-    );
+    if (this.my_id) {
+      this.userService.getUsers(this.my_id).subscribe(
+        (users: User[]) => {
+          this.users = users;
+        },
+        (error) => {
+          console.error('Error fetching users:', error);
+        }
+      );
+    } else {
+      console.error('User ID not found in localStorage');
+    }
   }
-
 
   getChats() {
-
-    let userId="15a5430f-c22d-4e8a-ae59-19004cbf5014";
-
-    this.userService.getChats(userId).subscribe(
-      (chats: Chat[]) => {
-        // this.users = users;
-        this.chats =chats;
-      },
-      (error) => {
-        console.error('Error fetching users:', error);
-      }
-    );
+    if (this.my_id) {
+      this.userService.getChats(this.my_id).subscribe(
+        (chats: Chat[]) => {
+          this.chats = chats;
+        },
+        (error) => {
+          console.error('Error fetching users:', error);
+        }
+      );
+    } else {
+      console.error('User ID not found in localStorage');
+    }
   }
-  
 
   openConversation(chatId: string | null, userId: string | null) {
     if (chatId) {
@@ -59,5 +68,29 @@ export class MatchesComponent implements OnInit  {
     } else {
       console.error('Both chatId and userId are null');
     }
+  }
+
+  onReceive() {
+    // Listen for incoming messages
+    this.socket.on('newMessage', (data: any) => {
+      console.log('Message received:', data.msg);
+
+      // Split the message if it's formatted with separators
+      const [senderId, chatId, messageContent] = data.msg.split('|');
+
+      this.chats.forEach((chat) => {
+        if (chat.chat_id === data.roomId) {
+          chat.last_message = messageContent;
+          chat.date_of_last_message = Date();
+          chat.is_read = false;
+        }
+      });
+      // Sort the chats by the date of the last message
+      this.chats.sort((a, b) => {
+        const dateA = new Date(a.date_of_last_message).getTime();
+        const dateB = new Date(b.date_of_last_message).getTime();
+        return dateB - dateA; // Sort in descending order (newest first)
+      });
+    });
   }
 }

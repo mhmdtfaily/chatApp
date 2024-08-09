@@ -1,29 +1,43 @@
 <ion-content class="matches-content">
-    <div>Matches</div>
-    <div class="matches-users-container">
-      <div class="matches-users-content" *ngFor="let user of users">
-        <div class="avatar-placeholder" (click)="openConversation(null,user.id)">{{ user.full_name.charAt(0) }}</div>
-        <div>{{ user.full_name }}</div>
+  <div class="matches-container">
+    <span class="matches-text">Matches</span>
+  </div>
+
+  <div class="matches-users-container">
+    <div class="matches-users-content" *ngFor="let user of users">
+      <div
+        class="avatar-placeholder-matches"
+        (click)="openConversation(null, user.id)"
+      >
+        {{ user.full_name ? user.full_name.charAt(0) : "" }}
       </div>
+      <span class="matches-name"> {{ user.full_name.split(" ")[0] }}</span>
     </div>
-  
-    <div class="chats-content">
-      <ion-list>
-        <ion-item *ngFor="let chat of chats" (click)="openConversation(chat.chat_id,null)">
-          <ion-avatar slot="start">
-            <div class="avatar-placeholder">
-              {{ chat.sender_name.charAt(0) }}
-            </div>
-          </ion-avatar>
-          <ion-label class="chat-label">
-            <h2>{{ chat.sender_name }}</h2>
-            <p>{{ chat.last_message }}</p>
-          </ion-label>
-          <div class="chat-date">
-            <small>{{ chat.date_of_last_message | date: 'shortTime' }}</small>
+  </div>
+
+  <div class="matches-container">
+    <span class="messages-text">Messages</span>
+  </div>
+  <div class="chats-content">
+    <ion-list>
+      <ion-item
+        *ngFor="let chat of chats"
+        (click)="openConversation(chat.chat_id, null)"
+      >
+        <ion-avatar slot="start">
+          <div class="avatar-placeholder">
+            {{ chat.sender_name === null ? "" : chat.sender_name.charAt(0) }}
           </div>
-        </ion-item>
-      </ion-list>
-    </div>
-  </ion-content>
-  
+        </ion-avatar>
+        <ion-label class="chat-label">
+          <h2>{{ chat.sender_name }}</h2>
+          <p>{{ chat.last_message }}</p>
+        </ion-label>
+        <div>{{ chat.is_read === true ? "true" : "false" }}</div>
+        <div class="chat-date">
+          <small>{{ chat.date_of_last_message | date : "shortTime" }}</small>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

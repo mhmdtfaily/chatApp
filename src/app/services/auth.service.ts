@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DefaultResponse } from '../models/default_response.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  authenticate(email: string, fullName: string): Observable<boolean> {
+  authenticate(email: string, fullName: string): Observable<User> {
     return this.http
       .post<DefaultResponse>(`${this.apiUrl}/login-or-create`, {
         email: email,
@@ -20,21 +21,25 @@ export class AuthService {
       })
       .pipe(
         map((response) => {
-          if (response.data) {
+          const user: User = response.data as User;
+          if (response.isSuccess) {
             localStorage.setItem('email', email);
-            return true;
+            localStorage.setItem('my_id', user.id.toString());
+            return user;
           } else {
             localStorage.removeItem('email');
-            return false;
+            throw new Error('Authentication failed');
           }
+        }),
+        catchError((error) => {
+          return throwError(() => new Error('Authentication failed'));
         })
       );
   }
 
   isLoggedIn(): boolean {
     // Your logic to check if the user is logged in
-
-    return !!localStorage.getItem('email');
+    return !!localStorage.getItem('my_id');
   }
 
   login(user: { username: string; password: string }): boolean {

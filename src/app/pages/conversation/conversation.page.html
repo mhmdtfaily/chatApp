@@ -1,13 +1,46 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Conversation</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/matches"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="header-content">
+        <div class="header-text">
+          <div class="name">{{ conversation?.name }}</div>
+          <div class="last-seen">{{ formatDate(conversation?.last_seen) }}</div>
+        </div>
+      </div>
+      <div class="avatar-placeholder">
+        {{conversation===null?"": conversation!.name ?
+        conversation!.name.charAt(0) : '' }}
+      </div>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div *ngIf="chatId && userId">
-    <!-- Display conversation based on chatId and userId -->
-    <p>Chat ID: {{ chatId }}</p>
-    <p>User ID: {{ userId }}</p>
+  <div class="messages">
+    <div
+      *ngFor="let message of conversation?.messages"
+      [ngClass]="{'my-message': message.is_me, 'other-message': !message.is_me}"
+    >
+      <div class="message-content">
+        <div class="message-text">{{ message.message }}</div>
+        <div class="message-date">
+          {{ formatDate(message.date_of_message) }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Message Input and Send Button -->
+  <div class="message-input-container">
+    <ion-input
+      [(ngModel)]="newMessage"
+      placeholder="Type a message"
+    ></ion-input>
+    <ion-button (click)="sendMessage()" fill="solid" shape="round">
+      <ion-icon name="send"></ion-icon>
+    </ion-button>
   </div>
 </ion-content>

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +17,10 @@ export class LoginPage {
 
   onSubmit() {
     this.authService.authenticate(this.email, this.fullName).subscribe({
-      next: (success: boolean) => {
-        if (success) {
+      next: (user: User) => {
+        if (user) {
           localStorage.setItem('email', this.email);
+          localStorage.setItem('my_id', user.id.toString());
           this.router.navigate(['/home']);
         } else {
           alert('Failed to authenticate');
