@@ -17,13 +17,12 @@ export class MatchesComponent implements OnInit {
   socket: any;
 
   constructor(private userService: UserService, private router: Router) {
-    this.socket = io('http://192.168.1.8:3000');
+    this.socket = io('http://localhost:3000');
   }
 
   ngOnInit() {
     this.onReceive();
     this.my_id = localStorage.getItem('my_id');
-    console.log('my_id', this.my_id);
     if (this.my_id) {
       this.getUsers();
       this.getChats();
@@ -73,9 +72,6 @@ export class MatchesComponent implements OnInit {
   onReceive() {
     // Listen for incoming messages
     this.socket.on('newMessage', (data: any) => {
-      console.log('Message received:', data.msg);
-
-      const found: boolean = false;
       // Split the message if it's formatted with separators
       const [senderId, chatId, messageContent] = data.msg.split('|');
 

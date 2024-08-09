@@ -12,9 +12,13 @@
   scrollbar-width: none; // Hide scrollbar in Firefox
 }
 
-// Hide scrollbar for WebKit browsers
-.matches-users-container::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+.matches-container {
+  display: flex;
+  align-items: center; // Align items vertically in the center
+  justify-content: center;
+  position: relative; // Position relative for positioning child elements
+  margin-bottom: 30px;
+  padding: 0 20px; // Padding for the container
 }
 
 .matches-text {
@@ -23,6 +27,25 @@
   font-weight: 500;
   padding-bottom: 20px;
   padding-top: 30px;
+  margin-right: 10px; // Add space between text and count
+}
+
+.matches-count {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  width: 24px; /* Size of the circle */
+  height: 24px; /* Size of the circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px; /* Font size inside the circle */
+  font-weight: bold;
+}
+
+// Hide scrollbar for WebKit browsers
+.matches-users-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 .messages-text {
@@ -31,11 +54,6 @@
   font-weight: 500;
   padding-bottom: 20px;
   padding-top: 20px;
-}
-
-.matches-container {
-  display: flex;
-  justify-content: center;
 }
 
 .matches-name {

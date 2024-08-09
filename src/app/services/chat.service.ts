@@ -52,7 +52,6 @@ export class ChatService {
     chatId: string,
     content: string
   ): Observable<boolean> {
-    console.log(`${this.apiUrl}/send-message`);
     return this.http
       .post<DefaultResponse>(`${this.apiUrl}/send-message`, {
         sender_id: senderId,
@@ -62,7 +61,6 @@ export class ChatService {
       .pipe(
         map((response) => {
           if (response.isSuccess) {
-            console.log('RESPONSE');
             return response.data as boolean;
           } else {
             throw new Error('Chat creation failed');

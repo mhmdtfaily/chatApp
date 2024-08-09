@@ -1,6 +1,7 @@
 <ion-content class="matches-content">
   <div class="matches-container">
     <span class="matches-text">Matches</span>
+    <span class="matches-count">{{ users.length }}</span>
   </div>
 
   <div class="matches-users-container">
@@ -18,6 +19,7 @@
   <div class="matches-container">
     <span class="messages-text">Messages</span>
   </div>
+
   <div class="chats-content">
     <ion-list>
       <ion-item
@@ -33,7 +35,6 @@
           <h2>{{ chat.sender_name }}</h2>
           <p>{{ chat.last_message }}</p>
         </ion-label>
-        <div>{{ chat.is_read === true ? "true" : "false" }}</div>
         <div class="chat-date">
           <small>{{ chat.date_of_last_message | date : "shortTime" }}</small>
         </div>

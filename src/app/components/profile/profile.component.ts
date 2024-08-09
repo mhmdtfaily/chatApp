@@ -25,7 +25,6 @@ export class ProfileComponent implements OnInit {
   fetchUser(id: string) {
     this.userService.getUser(id).subscribe({
       next: (response: DefaultResponse) => {
-        debugger;
         this.user = response.data;
         console.log('User data:', this.user);
         this.loading = false;

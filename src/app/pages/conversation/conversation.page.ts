@@ -21,7 +21,7 @@ export class ConversationPage implements OnInit {
     private route: ActivatedRoute,
     private chatService: ChatService // Inject the service
   ) {
-    this.socket = io('http://192.168.1.8:3000');
+    this.socket = io('http://localhost:3000');
   }
 
   ngOnInit() {
@@ -55,8 +55,6 @@ export class ConversationPage implements OnInit {
 
     // Listen for incoming messages
     this.socket.on('message', (message: string) => {
-      console.log('Message received:', message);
-
       // Split the message if it's formatted with separators
       const [senderId, chatId, messageContent] = message.split('|');
 
@@ -77,7 +75,6 @@ export class ConversationPage implements OnInit {
       this.chatService.getConversation(chatId, this.my_id).subscribe(
         (conversation) => {
           this.conversation = conversation;
-          console.log('Conversation:', this.conversation);
         },
         (error) => {
           console.error('Error fetching conversation:', error);
