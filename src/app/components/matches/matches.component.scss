@@ -3,15 +3,16 @@
   flex-wrap: nowrap;
   gap: 10px;
   margin-bottom: 30px;
-  overflow-y: scroll;
+  overflow-x: auto; // Enable horizontal scrolling
+  overflow-y: hidden; // Hide vertical overflow
   flex-direction: row;
   padding-left: 20px;
   color: #c1c1c1;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  -ms-overflow-style: none; // Hide scrollbar in IE
+  scrollbar-width: none; // Hide scrollbar in Firefox
 }
 
-/* Hide scrollbar for WebKit browsers */
+// Hide scrollbar for WebKit browsers
 .matches-users-container::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
@@ -119,4 +120,8 @@
       }
     }
   }
+}
+
+.chats-content {
+  padding-bottom: 55px; // Additional padding if needed
 }

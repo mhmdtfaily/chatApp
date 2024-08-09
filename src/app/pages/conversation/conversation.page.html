@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/matches"></ion-back-button>
+      <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
     <ion-title>
       <div class="header-content">
@@ -22,12 +22,14 @@
   <div class="messages">
     <div
       *ngFor="let message of conversation?.messages"
-      [ngClass]="{'my-message': message.is_me, 'other-message': !message.is_me}"
+      [ngClass]="{'my-message-container': message.is_me, 'other-message-container': !message.is_me}"
     >
       <div class="message-content">
-        <div class="message-text">{{ message.message }}</div>
-        <div class="message-date">
-          {{ formatDate(message.date_of_message) }}
+        <div class="message-text-time">
+          <div class="message-text">{{ message.message }}</div>
+          <div class="message-time">
+            {{ message.date_of_message | date : "shortTime" }}
+          </div>
         </div>
       </div>
     </div>

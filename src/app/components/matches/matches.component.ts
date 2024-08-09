@@ -17,13 +17,13 @@ export class MatchesComponent implements OnInit {
   socket: any;
 
   constructor(private userService: UserService, private router: Router) {
-    this.socket = io('http://192.168.1.103:3000');
+    this.socket = io('http://192.168.1.8:3000');
   }
 
   ngOnInit() {
     this.onReceive();
     this.my_id = localStorage.getItem('my_id');
-    console.log('my_id');
+    console.log('my_id', this.my_id);
     if (this.my_id) {
       this.getUsers();
       this.getChats();
@@ -75,16 +75,20 @@ export class MatchesComponent implements OnInit {
     this.socket.on('newMessage', (data: any) => {
       console.log('Message received:', data.msg);
 
+      const found: boolean = false;
       // Split the message if it's formatted with separators
       const [senderId, chatId, messageContent] = data.msg.split('|');
 
-      this.chats.forEach((chat) => {
-        if (chat.chat_id === data.roomId) {
-          chat.last_message = messageContent;
-          chat.date_of_last_message = Date();
-          chat.is_read = false;
-        }
-      });
+      const chatExists: Chat | undefined = this.chats.find(
+        (chat) => chat.chat_id === chatId
+      );
+      if (!chatExists) {
+        this.getChats();
+      } else {
+        chatExists.last_message = messageContent;
+        chatExists.date_of_last_message = Date();
+        chatExists.is_read = false;
+      }
       // Sort the chats by the date of the last message
       this.chats.sort((a, b) => {
         const dateA = new Date(a.date_of_last_message).getTime();

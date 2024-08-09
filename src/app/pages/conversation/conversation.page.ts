@@ -21,7 +21,7 @@ export class ConversationPage implements OnInit {
     private route: ActivatedRoute,
     private chatService: ChatService // Inject the service
   ) {
-    this.socket = io('http://192.168.1.103:3000');
+    this.socket = io('http://192.168.1.8:3000');
   }
 
   ngOnInit() {

@@ -15,7 +15,11 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  getUsers(userId:string): Observable<User[]> {
+  getUser(id: string): Observable<DefaultResponse> {
+    return this.http.get<DefaultResponse>(`${this.apiUrl}/profile/${id}`);
+  }
+
+  getUsers(userId: string): Observable<User[]> {
     return this.http.get<DefaultResponse>(`${this.apiUrl}/${userId}`).pipe(
       map((response) => {
         if (response.isSuccess) {
@@ -27,15 +31,17 @@ export class UserService {
     );
   }
 
-  getChats(userId:string): Observable<Chat[]> {
-    return this.http.get<DefaultResponse>(`${this.apiUrl}/${userId}/chats`).pipe(
-      map((response) => {
-        if (response.isSuccess) {
-          return response.data as Chat[];
-        } else {
-          return [];
-        }
-      })
-    );
+  getChats(userId: string): Observable<Chat[]> {
+    return this.http
+      .get<DefaultResponse>(`${this.apiUrl}/${userId}/chats`)
+      .pipe(
+        map((response) => {
+          if (response.isSuccess) {
+            return response.data as Chat[];
+          } else {
+            return [];
+          }
+        })
+      );
   }
 }

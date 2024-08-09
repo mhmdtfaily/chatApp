@@ -2,7 +2,7 @@ export class User {
   id: string;
   email: string;
   full_name: string;
-  imageUrl: string; 
+  imageUrl?: string;
   constructor(id: string, email: string, full_name: string, imageUrl: string) {
     this.id = id;
     this.email = email;

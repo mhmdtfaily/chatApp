@@ -1,3 +1,15 @@
-<p>
-  profile works!
-</p>
+<ng-container *ngIf="user; else loading">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ user.full_name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Email: {{ user.email }}</p>
+    </ion-card-content>
+  </ion-card>
+</ng-container>
+
+<ng-template #loading>
+  <ion-spinner name="crescent"></ion-spinner>
+  <p>Loading...</p>
+</ng-template>

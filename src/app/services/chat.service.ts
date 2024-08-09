@@ -39,7 +39,7 @@ export class ChatService {
       .pipe(
         map((response) => {
           if (response.isSuccess) {
-            return response.data;
+            return response.data as string;
           } else {
             throw new Error('Chat creation failed');
           }
