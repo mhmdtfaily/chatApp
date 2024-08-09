@@ -1,0 +1,32 @@
+# Chat Application
+
+## Overview
+
+This project is a front-end chat application that uses Ionic and Angular. Follow these instructions to set up and run the project.
+
+## Prerequisites
+
+1. **Node.js**
+   - Download and install [Node.js](https://nodejs.org/).
+
+2. **Ionic CLI**
+   - Install the Ionic CLI globally using npm:
+     ```bash
+     npm install -g @ionic/cli
+     ```
+
+3. **Angular CLI**
+   - Install the Angular CLI globally using npm:
+     ```bash
+     npm install -g @angular/cli
+     ```
+
+## Setup Instructions
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/mhmdtfaily/chatApp.git
+   cd chatApp
+   ``` bash
+   install all requiment module
+   npm install
